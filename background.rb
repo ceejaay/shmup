@@ -12,6 +12,16 @@ class Background
   end
 
   def move(direction)
+    case direction
+      when :up
+        @y -= 5 until @y == -10
+      when :down
+        @y += 5 until @y == 0
+      when :left
+        @x += 5 until @x == 0
+      when :right
+        @x -= 5 until @x == -10
+    end
   end
 
 end

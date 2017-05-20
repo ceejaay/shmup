@@ -9,6 +9,6 @@ class Enemy
   end
 
   def draw
-    @image.draw(@x, @y, 1)
+    @image.draw_rot(@x, @y, 0, 1)
   end
 end

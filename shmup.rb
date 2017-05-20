@@ -32,10 +32,10 @@ class Shmup < Gosu::Window
   end
 
   def update
-    #@player.turn_left if button_down?(Gosu::KbLeft)
-    #@player.turn_right if button_down?(Gosu::KbRight)
-    #@player.accelerate if button_down?(Gosu::KbUp)
-    #@player.move
+    @player.left and @background.move(:right) if button_down?(Gosu::KbLeft)
+    @player.right and @background.move(:left) if button_down?(Gosu::KbRight)
+    @player.up and @background.move(:down) if button_down?(Gosu::KbUp)
+    @player.down and @background.move(:up) if button_down?(Gosu::KbDown)
     #@enemies.length.times do |enemy_x_y|
     #    distance = Gosu.distance(enemy_x_y * (WIDTH / 10), 150, @player.x, @player.y)
     #    if distance <  20 + @enemies[enemy_x_y].radius
@@ -44,6 +44,7 @@ class Shmup < Gosu::Window
     #      @enemies[enemy_x_y].visible = false
     #    end
    # end
+    @player.move
     close if button_down?(Gosu::KbEscape)
   end
 end
