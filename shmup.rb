@@ -2,6 +2,7 @@ require 'gosu'
 require_relative 'background'
 require_relative 'player'
 require_relative 'enemy'
+require_relative 'bullet'
 
 
 class Shmup < Gosu::Window
@@ -16,6 +17,8 @@ class Shmup < Gosu::Window
     @player = Player.new(self)
     @enemy = Enemy.new(self)
     @enemies = []
+
+    @bullets = []
     #40.times do
     #  @enemies << Enemy.new(self)
     #end
@@ -25,10 +28,17 @@ class Shmup < Gosu::Window
     @background.draw
     @player.draw
     @enemy.draw(100)
-  
+    @bullets.each {|bullet| bullet.draw}
+    @bullets.each {|bullet| bullet.move}
     #@enemies.length.times do |item|
     #  @enemies[item].draw((WIDTH / 10) * item)
     #end
+  end
+
+  def button_down(id)
+    if id == Gosu::KbSpace
+      @bullets << Bullet.new(self, @player.x, @player.y)
+      end
   end
 
   def update
@@ -36,6 +46,7 @@ class Shmup < Gosu::Window
     @player.right and @background.move(:left) if button_down?(Gosu::KbRight)
     @player.up and @background.move(:down) if button_down?(Gosu::KbUp)
     @player.down and @background.move(:up) if button_down?(Gosu::KbDown)
+
     #@enemies.length.times do |enemy_x_y|
     #    distance = Gosu.distance(enemy_x_y * (WIDTH / 10), 150, @player.x, @player.y)
     #    if distance <  20 + @enemies[enemy_x_y].radius
