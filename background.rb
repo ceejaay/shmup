@@ -14,13 +14,13 @@ class Background
   def move(direction)
     case direction
       when :up
-        @y -= 5 until @y == -10
+        @y -= 5 until @y == -15
       when :down
-        @y += 5 until @y == 0
+        @y += 5 until @y == 5
       when :left
-        @x += 5 until @x == 0
+        @x += 5 until @x == 5
       when :right
-        @x -= 5 until @x == -10
+        @x -= 5 until @x == -15
     end
   end
 
