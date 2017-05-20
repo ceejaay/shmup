@@ -1,5 +1,5 @@
 class Enemy
-  attr_accessor :x, :y, :radius, :visible
+  attr_accessor :x, :y, :radius
   SPEED = 4
 
   def initialize(window)
@@ -11,7 +11,7 @@ class Enemy
   end
 
   def move
-    @y += SPEED
+    @x -= SPEED
   end
 
   def draw(x)

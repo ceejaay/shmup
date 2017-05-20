@@ -4,32 +4,25 @@ require_relative 'player'
 require_relative 'enemy'
 require_relative 'bullet'
 
-
 class Shmup < Gosu::Window
   WIDTH = 800
   HEIGHT = 600
-  #ENEMY_FREQUENCY = 0.07
+  ENEMY_FREQUENCY = 0.07
   #ENEMY_FREQUENCY = 1
   def initialize
     super(WIDTH, HEIGHT)
     self.caption = 'Shmup'
     @background = Background.new
     @player = Player.new(self)
-    @enemy = Enemy.new(self)
     @enemies = []
-
     @bullets = []
-    #40.times do
-    #  @enemies << Enemy.new(self)
-    #end
   end
 
   def draw
     @background.draw
     @player.draw
-    @enemy.draw(100)
+    @enemies.each {|e| e.draw(e.x)}
     @bullets.each {|bullet| bullet.draw}
-    @bullets.each {|bullet| bullet.move}
     #@enemies.length.times do |item|
     #  @enemies[item].draw((WIDTH / 10) * item)
     #end
@@ -46,7 +39,10 @@ class Shmup < Gosu::Window
     @player.right and @background.move(:left) if button_down?(Gosu::KbRight)
     @player.up and @background.move(:down) if button_down?(Gosu::KbUp)
     @player.down and @background.move(:up) if button_down?(Gosu::KbDown)
-
+    if rand < ENEMY_FREQUENCY
+      @enemies << Enemy.new(self)
+      end
+    @enemies.each {|enemy| enemy.move}
     #@enemies.length.times do |enemy_x_y|
     #    distance = Gosu.distance(enemy_x_y * (WIDTH / 10), 150, @player.x, @player.y)
     #    if distance <  20 + @enemies[enemy_x_y].radius
@@ -56,6 +52,7 @@ class Shmup < Gosu::Window
     #    end
    # end
     @player.move
+    @bullets.each {|bullet| bullet.move}
     close if button_down?(Gosu::KbEscape)
   end
 end
