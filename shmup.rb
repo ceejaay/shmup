@@ -24,7 +24,7 @@ class Shmup < Gosu::Window
   def draw
     @background.draw
     @player.draw
-    @enemy.draw
+    @enemy.draw(100)
   
     #@enemies.length.times do |item|
     #  @enemies[item].draw((WIDTH / 10) * item)
