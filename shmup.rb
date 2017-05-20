@@ -53,6 +53,12 @@ class Shmup < Gosu::Window
    # end
     @player.move
     @bullets.each {|bullet| bullet.move}
+    @bullets.dup.each {|bullet| @bullets.delete(bullet) unless bullet.onscreen?}
+    @enemies.dup.each do |enemy|
+      if enemy.x < 0
+        @enemies.delete(enemy)
+      end
+    end
     close if button_down?(Gosu::KbEscape)
   end
 end

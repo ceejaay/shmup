@@ -14,7 +14,7 @@ class Player
   end
 
   def draw
-    @image.draw_rot(@x, @y, 0, 1)
+    @image.draw_rot(@x, @y, 5, 0)
   end
 
   def move
