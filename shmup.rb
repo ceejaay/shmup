@@ -7,7 +7,7 @@ require_relative 'bullet'
 class Shmup < Gosu::Window
   WIDTH = 800
   HEIGHT = 600
-  ENEMY_FREQUENCY = 0.07
+  ENEMY_FREQUENCY = 0.09
   #ENEMY_FREQUENCY = 1
   def initialize
     super(WIDTH, HEIGHT)
@@ -57,14 +57,7 @@ class Shmup < Gosu::Window
       end
 
     end
-    #@enemies.length.times do |enemy_x_y|
-    #    distance = Gosu.distance(enemy_x_y * (WIDTH / 10), 150, @player.x, @player.y)
-    #    if distance <  20 + @enemies[enemy_x_y].radius
-    #      @enemies[enemy_x_y].visible = true
-    #    else
-    #      @enemies[enemy_x_y].visible = false
-    #    end
-   # end
+
     @player.move
     @bullets.each {|bullet| bullet.move}
     @bullets.dup.each {|bullet| @bullets.delete(bullet) unless bullet.onscreen?}

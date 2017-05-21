@@ -4,10 +4,10 @@ class Enemy
 
   def initialize(window)
     @radius = 20
-    @x = rand(window.width - 2 * @radius) + @radius
-    @y = 150
+    @x = 800 + @radius
+    @y = rand(window.height - 2 * @radius) + @radius
     @image = Gosu::Image.new("media/enemy.png")
-    @message = Gosu::Font.new(24)
+    @message = Gosu::Font.new(15)
   end
 
   def move
