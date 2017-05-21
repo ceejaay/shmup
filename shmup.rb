@@ -43,6 +43,16 @@ class Shmup < Gosu::Window
       @enemies << Enemy.new(self)
       end
     @enemies.each {|enemy| enemy.move}
+    @enemies.dup.each do |enemy|
+      @bullets.dup.each do |bullet|
+        distance = Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y)
+        if distance < enemy.radius + bullet.radius
+          @enemies.delete(enemy)
+          @bullets.delete(bullet)
+          end
+      end
+
+    end
     #@enemies.length.times do |enemy_x_y|
     #    distance = Gosu.distance(enemy_x_y * (WIDTH / 10), 150, @player.x, @player.y)
     #    if distance <  20 + @enemies[enemy_x_y].radius
