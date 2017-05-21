@@ -7,7 +7,7 @@ require_relative 'bullet'
 class Shmup < Gosu::Window
   WIDTH = 800
   HEIGHT = 600
-  ENEMY_FREQUENCY = 0.09
+  ENEMY_FREQUENCY = 0.01
   #ENEMY_FREQUENCY = 1
   def initialize
     super(WIDTH, HEIGHT)
