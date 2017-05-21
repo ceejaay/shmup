@@ -39,6 +39,10 @@ class Shmup < Gosu::Window
     @player.right and @background.move(:left) if button_down?(Gosu::KbRight)
     @player.up and @background.move(:down) if button_down?(Gosu::KbUp)
     @player.down and @background.move(:up) if button_down?(Gosu::KbDown)
+    @player.left and @background.move(:right) if button_down?(Gosu::GP_LEFT)
+    @player.right and @background.move(:left) if button_down?(Gosu::GP_RIGHT)
+    @player.up and @background.move(:down) if button_down?(Gosu::GP_UP)
+    @player.down and @background.move(:up) if button_down?(Gosu::GP_DOWN)
     if rand < ENEMY_FREQUENCY
       @enemies << Enemy.new(self)
       end
