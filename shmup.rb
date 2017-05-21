@@ -3,6 +3,7 @@ require_relative 'background'
 require_relative 'player'
 require_relative 'enemy'
 require_relative 'bullet'
+require_relative 'ground'
 
 class Shmup < Gosu::Window
   WIDTH = 800
@@ -13,6 +14,7 @@ class Shmup < Gosu::Window
     super(WIDTH, HEIGHT)
     self.caption = 'Shmup'
     @background = Background.new
+    @ground = [Ground.new(self, -20), Ground.new(self, 800)]
     @player = Player.new(self)
     @enemies = []
     @bullets = []
@@ -20,6 +22,7 @@ class Shmup < Gosu::Window
 
   def draw
     @background.draw
+    @ground.each {|ground| ground.draw}
     @player.draw
     @enemies.each {|e| e.draw(e.x)}
     @bullets.each {|bullet| bullet.draw}
@@ -47,6 +50,7 @@ class Shmup < Gosu::Window
       @enemies << Enemy.new(self)
       end
     @enemies.each {|enemy| enemy.move.veer}
+    @ground.each {|ground| ground.move}
     @enemies.dup.each do |enemy|
       @bullets.dup.each do |bullet|
         distance = Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y)
