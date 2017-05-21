@@ -46,7 +46,7 @@ class Shmup < Gosu::Window
     if rand < ENEMY_FREQUENCY
       @enemies << Enemy.new(self)
       end
-    @enemies.each {|enemy| enemy.move}
+    @enemies.each {|enemy| enemy.move.veer}
     @enemies.dup.each do |enemy|
       @bullets.dup.each do |bullet|
         distance = Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y)
