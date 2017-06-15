@@ -32,7 +32,7 @@ class Shmup < Gosu::Window
   end
 
   def button_down(id)
-    if id == Gosu::KbSpace or Gosu::GP_BUTTON_0
+    if id == Gosu::KbSpace
       @bullets << Bullet.new(self, @player.x, @player.y)
       end
   end
