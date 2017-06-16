@@ -21,7 +21,6 @@ class Enemy
   end
 
   def wave
-    @y += 1
   end
 
   def veer
