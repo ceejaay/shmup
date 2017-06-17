@@ -9,6 +9,9 @@ class Enemy
     @image = Gosu::Image.new("media/enemy.png")
     @message = Gosu::Font.new(15)
     @window = window
+    @top_of_wave = @y - @image.height
+    @bottom_of_wave = @y + @image.height
+    @going_up = true
   end
 
   def move
@@ -21,7 +24,18 @@ class Enemy
   end
 
   def wave
-    @y += 1
+    if @going_up == true and @y >= @top_of_wave
+      @y -= 3
+    end
+    if @y <= @top_of_wave
+      @going_up = false
+    end
+    if @going_up == false and @y <= @bottom_of_wave
+      @y += 3
+      end
+    if @y >= @bottom_of_wave
+      @going_up = true
+      end
   end
 
   def veer
