@@ -33,7 +33,7 @@ class Shmup < Gosu::Window
 
   def button_down(id)
     if id == Gosu::KbSpace
-      @bullets << Bullet.new(self, @player.x, @player.y)
+      @bullets << Bullet.new(self, @player.x, @player.y, :player_bullet)
       end
   end
 
@@ -50,16 +50,31 @@ class Shmup < Gosu::Window
       @enemies << Enemy.new(self)
       end
     @ground.each {|ground| ground.move}
-    @enemies.each {|enemy| enemy.move.wave}
-    @enemies.dup.each do |enemy|
-      @bullets.dup.each do |bullet|
-        distance = Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y)
-        if distance < enemy.radius + bullet.radius
-          @enemies.delete(enemy)
-          @bullets.delete(bullet)
-          end
+    @enemies.each do |enemy| 
+      enemy.move.wave
+    if rand < ENEMY_FREQUENCY
+      @bullets << Bullet.new(self, enemy.x, enemy.y, :enemy_bullet)
       end
 
+    end
+
+    @enemies.dup.each do |enemy|
+      @bullets.dup.each do |bullet|
+        case bullet.type
+          when :player_bullet
+            distance = Gosu.distance(bullet.x, bullet.y, enemy.x, enemy.y)
+            if distance < 20
+              @bullets.delete(bullet)
+              @enemies.delete(enemy)
+            end
+          when :enemy_bullet
+            distance = Gosu.distance(bullet.x, bullet.y, @player.x, @player.y)
+            if distance < 20
+              @bullets.delete(bullet)
+            end
+          #check distance between enemy bullet and player and delete bullet if they are close enough
+        end
+      end
     end
     @player.move
     @bullets.each {|bullet| bullet.move}

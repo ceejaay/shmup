@@ -1,19 +1,26 @@
 
 class Bullet
-  attr_reader :x, :y, :radius
+  attr_reader :x, :y, :radius, :type
   SPEED = 30
-  def initialize(window, x, y)
+  def initialize(window, x, y, type)
     @window = window
     @radius = 3
     @x = x
     @y = y
+    @type = type
     #@direction = angle
     @image = Gosu::Image.new("media/bullet.png")
   end
 
   def move
-    @x += SPEED
-    @y += 0
+    case @type
+    when :player_bullet
+      @x += SPEED
+      @y += 0
+    when :enemy_bullet
+      @x -= SPEED
+      @y -= 0
+    end
     #@x += Gosu.offset_x(@direction, SPEED)
     #@y += Gosu.offset_y(@direction, SPEED)
   end
