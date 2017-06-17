@@ -61,7 +61,6 @@ class Shmup < Gosu::Window
       end
 
     end
-
     @player.move
     @bullets.each {|bullet| bullet.move}
     @bullets.dup.each {|bullet| @bullets.delete(bullet) unless bullet.onscreen?}
